@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,4 +29,16 @@ Route::group(['prefix'=>'admin','middleware'=>['auth','admin']], function (){
 Route::group(['prefix'=>'author','middleware'=>['auth','author']], function (){
     Route::get('dashboard','AuthorController@index')->name('author.dashboard');
 
+});
+
+
+Route::get('/verify_user/dashboard', function () {
+
+    if (Auth::check() && Auth::user()->role->id == 1)
+    {
+       return redirect('/admin/dashboard');
+    } else {
+        return redirect('/author/dashboard');
+    }
+    
 });
