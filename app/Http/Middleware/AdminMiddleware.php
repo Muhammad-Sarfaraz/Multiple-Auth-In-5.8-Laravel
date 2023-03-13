@@ -16,6 +16,7 @@ class AdminMiddleware
      */
     public function handle($request, Closure $next)
     {
+        // If it is author.
         if (Auth::check() && Auth::user()->role->id == 1)
         {
             return $next($request);
